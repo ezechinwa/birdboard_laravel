@@ -17,9 +17,12 @@ class ProjectsController extends Controller
            $attributes =  request()->validate(
                 [
                         'title' => 'required|min:20',
-                        'description' => 'required|min:10'
+                        'description' => 'required|min:10',
                     ]
                 );
+
+                $attributes['owner_id'] = auth()->id();
+               
         Project::create($attributes);
         return redirect('/projects');
       

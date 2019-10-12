@@ -12,9 +12,10 @@ class Project extends TestCase
    /** @test */
    function is_has_its_paths(){
     // /project/'.$project->id 
-     $project =  factory('App\Project')->createt();
-     $this->assertEquals('/project'.$project->id, $project->path());
+     $project =  factory('App\Project')->create();
+     $this->assertEquals('/project/'.$project->id, $project->path());
    }
 
+  
 
 }

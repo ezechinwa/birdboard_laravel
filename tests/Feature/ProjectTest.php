@@ -8,18 +8,24 @@ use Tests\TestCase;
 
 class ProjectTest extends TestCase
 {
-    use WithFaker, RefreshDatabase;
+ use WithFaker, RefreshDatabase;
+   //use WithFaker;
   
    
      /** @test */
      public function a_user_can_create_a_project()
      {
-         $this->withoutExceptionHandling();
+       $this->withoutExceptionHandling();
+         $userid = factory('App\User')->create()->id;
          $attributes = [
             'title' => $this->faker->sentence,
-             'description' => $this->faker->sentence
+             'description' => $this->faker->sentence,
+             'owner_id' => $userid
          ]; 
-         $this->post('/projects', $attributes)->assertRedirect('/projects');
+
+       
+        $this->post('/projects', $attributes)->assertRedirect('/projects');
+        
          $this->assertDatabaseHas('projects', $attributes);
          $this->get('/projects')->assertSee($attributes['title']);
    
@@ -27,16 +33,23 @@ class ProjectTest extends TestCase
 
     /** @test */
     public function a_project_must_have_a_title_and_description(){
-        $attributes = factory('App\Project')->raw(['title'=>'','description'=>'']);
+        $attributes = factory('App\Project')->raw(['title'=>null,'description'=>null]);
         $this->post('/projects',$attributes)->assertSessionHasErrors('title');
         $this->post('/projects',$attributes)->assertSessionHasErrors('description');
     }
 
     /** @test */
     public function a_user_can_view_a_project(){
-        $this->withoutExceptionHandling();
+      $this->withoutExceptionHandling();
       $project =   factory('App\Project')->create();
-      $this->get('/project/'.$project->id)->assertSee($project->title)->assertSee($project->description); 
+      $this->get($project->path())->assertSee($project->title)->assertSee($project->description); 
+    }
+
+      /** @test */
+      public function a_project_requires_an_owner(){
+        $this->withoutExceptionHandling();
+        $attributes =   factory('App\Project')->raw(['owner_id'=>null]);
+        $this->post('/projects',$attributes)->assertRedirect('login');
     }
 
   

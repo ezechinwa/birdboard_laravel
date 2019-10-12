@@ -8,11 +8,11 @@
 </head>
 <body>
     
-{{-- 
+
     @foreach ($projects as $project )
-<li>{{$project->title}}</li>
-        
-    @endforeach --}}
+    <a href={{$project->path()}}>{{$project->title}}</a>
+        <li></li>
+    @endforeach
 
 
 </body>

@@ -7,12 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p>List of projects</p>
 <ul>
-    @foreach ($projects as $project )
-    <li>{{$project->title}}</li>
+  
    
-@endforeach
+@forelse ($projects as $project)
+<li>  <a href={{$project->path()}}>{{$project->title}}</a></li>
+  
+@empty
+<li>  No project yet</li>
+  
+    
+@endforelse
 </ul>
    
 </body>
