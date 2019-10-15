@@ -13,10 +13,18 @@
 
 
 
-Route::get('/projects', 'ProjectsController@index');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/projects', 'ProjectsController@index');
+    Route::get('/project/create', 'ProjectsController@create');
 Route::get('/project/{project}', 'ProjectsController@show');
-Route::post('/projects', 'ProjectsController@store')->middleware('auth');
+Route::post('/projects', 'ProjectsController@store');
+
+});
 
 
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

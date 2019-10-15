@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -11,5 +12,9 @@ class Project extends Model
   
     function path(){
         return "/project/{$this->id}";
+      }
+
+      function owner(){
+       return $this->belongsTo(User::class);
       }
 }
