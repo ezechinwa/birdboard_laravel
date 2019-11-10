@@ -15,10 +15,11 @@
 
 
 Route::group(['middleware' => ['auth']], function () {
+    
     Route::get('/projects', 'ProjectsController@index');
     Route::get('/project/create', 'ProjectsController@create');
-Route::get('/project/{project}', 'ProjectsController@show');
-Route::post('/projects', 'ProjectsController@store');
+    Route::get('/project/{project}', 'ProjectsController@show');
+    Route::post('/projects', 'ProjectsController@store');
 
 });
 
