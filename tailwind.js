@@ -1,7 +1,11 @@
 module.exports = {
   theme: {
     
-   
+    buttonblue:{
+      // backgroundColor: '#47cdff',
+      // @apply bg-blue-500 text-white;
+      
+    },
     extend: {
       backgroundColor: theme => ({
         'greybackground': '#F5F6F9'
@@ -16,6 +20,8 @@ module.exports = {
       focus: '0 0 0 3px rgba(66,153,225,0.5)',
         'none': 'none',
       },
+   
+      
     }
   },
   variants: {},
